@@ -1,0 +1,34 @@
+<div>
+  <div>
+    <div>
+      <h4>Выбор валюты: {{selcurs}}</h4>
+      <select [(ngModel)]="selcurs" (change)="SaveValut()" matNativeControl>
+        <option *ngFor="let item of valutitems" value="{{item.id}}" >{{item.name}}</option>
+      </select>
+    </div>
+    <div>
+      <h4>Радиус:</h4>
+      <input type="number" [(ngModel)]="radius" maxlength="3" />
+      <button (click)="Draw()">Применить</button>
+    </div>
+    <div>
+      <h4>Координаты: </h4>
+      <span>x:</span><input [(ngModel)]="manual_x" OnlyNumber="true" maxlength="4" type="number"/>
+      <span>y:</span><input [(ngModel)]="manual_y" OnlyNumber="true" maxlength="4" type="number"/>
+      <button (click)="manualClick()">Задать координаты вручную</button>
+    </div>
+    <div>
+      <h4>Курс: </h4>
+      <span>{{valutcurs?.name}}</span>
+      <br>
+      <span>На дату: {{valutcurs?.date}}</span>
+      <p *ngFor="let val of cursarr">
+        <span *ngIf="val.id == selcurs">за {{val?.nominal}} {{val?.charCode}} = {{val?.value}} RUB</span>
+        <span *ngIf="val.id == selcurs"><br /></span>
+        <span *ngIf="val.id == selcurs">за 1 RUB = {{Conv()}} {{val?.charCode}}</span>
+      </p>
+  </div>
+  <canvas (click)="getPosition($event)" #canv></canvas>
+  <label>Click position x:{{cursor_x}}  y:{{cursor_y}}</label>
+</div>
+
